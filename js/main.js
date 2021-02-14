@@ -103,8 +103,8 @@ function getGeographicCoordinates(min, max, numberOfDecimals) {
   max = Math.floor(max);
 
   const numRandom = Math.random() * (max - min + 1) + min;
-  numRandom = numRandom.toFixed(numberOfDecimals);
-  return numRandom;
+  return numRandom.toFixed(numberOfDecimals);
+
 }
 
 getGeographicCoordinates();
