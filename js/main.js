@@ -16,8 +16,6 @@ const OFFER_TITLES = [
   'Идеально для отдыха всей семьёй',
 ];
 
-//address
-
 const MIN_OFFER_PRICE = 10000;
 const MAX_OFFER_PRICE = 60000;
 
@@ -69,15 +67,13 @@ const getRundomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-getRundomInteger();
-
 //возвращает случайный элемент из массива
 const getRandomElement = (array) => {
   const randomIndex = getRundomInteger(0, array.length - 1);
   return array[randomIndex];
 };
 
-//возвращает уникальное число из переданного диапазона включительно
+/*возвращает уникальное число из переданного диапазона включительно
 const getRandomUniqueInteger = (min, max) => {
   const previousValues = [];
 
@@ -93,7 +89,7 @@ const getRandomUniqueInteger = (min, max) => {
 const getRandomUniqueElement = (array) => {
   const UniqueIndex = getRandomUniqueInteger(0, array.length - 1);
   return array[UniqueIndex];
-};
+};*/
 
 //возвращает случайное число с плавающей точкой из переданного диапазона включительно
 function getGeographicCoordinates(min, max, numberOfDecimals) {
@@ -102,7 +98,6 @@ function getGeographicCoordinates(min, max, numberOfDecimals) {
 
   const numRandom = Math.random() * (max - min + 1) + min;
   return numRandom.toFixed(numberOfDecimals);
-
 }
 
 //создает массив случайной длины из значений
