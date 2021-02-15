@@ -63,7 +63,6 @@ const MIN_Y_LOCATION = 139.7;
 const MAX_Y_LOCATION = 139.8;
 
 //возвращает случайное целое число из переданного диапазона включительно
-
 const getRundomInteger = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -79,7 +78,6 @@ const getRandomElement = (array) => {
 };
 
 //возвращает уникальное число из переданного диапазона включительно
-
 const getRandomUniqueInteger = (min, max) => {
   const previousValues = [];
 
@@ -107,7 +105,13 @@ function getGeographicCoordinates(min, max, numberOfDecimals) {
 
 }
 
-getGeographicCoordinates();
+//создает массив случайной длины из значений
+const getRandomLengthArray = (array) => {
+  const randomLengthArray = array.slice(0, getRundomInteger(0, array.length - 1));
+
+  return randomLengthArray;
+};
+
 
 //генерирует объект location
 const getLocation = () => {
@@ -141,9 +145,9 @@ const createObject = () => {
       guests: getRundomInteger(MIN_OFFER_GUESTS, MAX_OFFER_GUESTS),
       checkin: getRandomElement(OFFER_CHECKIN_HOURS),
       checkout: getRandomElement(OFFER_CHECKOUT_HOURS),
-      features: getRandomUniqueElement(OFFER_FEATURES),
-      description: getRandomUniqueElement(OFFER_DESCRIPTIONS),
-      photos: getRandomUniqueElement(OFFER_PHOTOS),
+      features: getRandomLengthArray(OFFER_FEATURES),
+      description: getRandomElement(OFFER_DESCRIPTIONS),
+      photos: getRandomLengthArray(OFFER_PHOTOS),
     },
     location: getLocation(),
   };
