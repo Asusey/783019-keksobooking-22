@@ -3,7 +3,7 @@ import {
   getRandomElement,
   getGeographicCoordinates,
   getRandomLengthArray
-} from './util';
+} from './util.js';
 
 //Генерация данных
 
@@ -108,5 +108,7 @@ const createObject = () => {
 };
 
 //создаём новый массив объектов
-const totalArray = new Array[TOTAL_COUNT].fill(null).map(() => createObject());
+const totalArray = new Array(TOTAL_COUNT).fill(null).map(() => createObject());
 totalArray;  //здесь я бы вынесла в консоль, но нельзя использовать console.log
+
+export {totalArray};
