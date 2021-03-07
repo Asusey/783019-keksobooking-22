@@ -76,3 +76,5 @@ const cards = createCards(totalArray);
 
 blockForMap.appendChild(cards[0]);
 //blockForMap.appendChild(cardElement);
+
+export {cards};

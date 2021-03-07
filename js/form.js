@@ -1,6 +1,7 @@
 const FORM = document.querySelector('.ad-form');
 const HOUSE_TYPE = FORM.querySelector('#type');
 const PRICE = FORM.querySelector('#price');
+const ADDRESS = FORM.querySelector('#address');
 
 const FORM_ELEMENT_TIME = FORM.querySelector('.ad-form__element--time');
 const CHECKIN = FORM.querySelector('#timein');
@@ -27,3 +28,4 @@ FORM_ELEMENT_TIME.addEventListener('change', (evt) => {
   CHECKIN.value = evt.target.value;
 })
 
+export {FORM, ADDRESS};
