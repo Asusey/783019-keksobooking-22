@@ -1,6 +1,6 @@
 import {totalArray} from './data.js';
 
-const blockForMap = document.querySelector('.map__canvas');
+//const blockForMap = document.querySelector('.map__canvas');
 const announcementCardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 //const similarCardElements = totalArray();
@@ -45,7 +45,7 @@ const createCards = (data) => {
     const cardElement = announcementCardTemplate.cloneNode(true);//клонируем карточку объявления
 
     cardElement.querySelector('.popup__title').textContent = card.offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
+    cardElement.querySelector('.popup__text--address').textContent = `${card.offer.address.X}, ${card.offer.address.Y}`;
     cardElement.querySelector('.popup__text--price').textContent =
     card.offer.price + ' ₽/ночь';
     cardElement.querySelector('.popup__type').textContent = typeMapper[card.offer.type];
@@ -66,7 +66,6 @@ const createCards = (data) => {
     cardElement.querySelector('.popup__photos').appendChild(photos);
 
     cardElement.querySelector('.popup__avatar').src = card.author.avatar;
-
     cards.push(cardElement);
   });
   return cards;
@@ -74,7 +73,7 @@ const createCards = (data) => {
 
 const cards = createCards(totalArray);
 
-blockForMap.appendChild(cards[0]);
+//blockForMap.appendChild(cards[0]);
 //blockForMap.appendChild(cardElement);
 
-export {cards};
+export {cards, createCards};

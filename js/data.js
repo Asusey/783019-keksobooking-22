@@ -72,7 +72,7 @@ const getLocation = () => {
   const X = getGeographicCoordinates(MIN_X_LOCATION, MAX_X_LOCATION, 5);
   const Y = getGeographicCoordinates(MIN_Y_LOCATION, MAX_Y_LOCATION, 5);
 
-  return [X, Y];
+  return {X, Y};
 };
 
 //генерирует объект author
@@ -109,6 +109,5 @@ const createObject = () => {
 
 //создаём новый массив объектов
 const totalArray = new Array(TOTAL_COUNT).fill(null).map(() => createObject());
-totalArray;  //здесь я бы вынесла в консоль, но нельзя использовать console.log
 
 export {totalArray};

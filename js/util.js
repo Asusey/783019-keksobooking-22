@@ -31,8 +31,8 @@ const getRandomUniqueElement = (array) => {
 
 //возвращает случайное число с плавающей точкой из переданного диапазона включительно
 function getGeographicCoordinates(min, max, numberOfDecimals) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
+  //min = Math.ceil(min);
+  //max = Math.floor(max);
 
   const numRandom = Math.random() * (max - min + 1) + min;
   return numRandom.toFixed(numberOfDecimals);

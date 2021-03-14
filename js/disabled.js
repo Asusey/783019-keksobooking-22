@@ -1,5 +1,6 @@
 import {
-  FORM
+  FORM,
+  ADDRESS
 } from './form.js';
 
 const MAP_FILTERS = document.querySelector('.map__filters');
@@ -62,5 +63,7 @@ const setFormActive = () => {
   setMapFilterElementsActive();
   setFormElementsActive();
 }
+
+ADDRESS.setAttribute('disabled', 'disabled');
 
 export {setFormActive};
