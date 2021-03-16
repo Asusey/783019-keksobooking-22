@@ -21,7 +21,6 @@ const ZOOM = 10;
 //создаём и отрисовываем карту
 const map = window.L.map('map-canvas')
   .on('load', () => {
-    //console.log('Карта инициализирована');
     setFormActive();
     ADDRESS.value = `${LAT}, ${LNG}`;
   })
@@ -42,7 +41,7 @@ const mainPinIcon = window.L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
-})
+});
 
 const mainPinMarker = window.L.marker(
   {
@@ -57,14 +56,12 @@ const mainPinMarker = window.L.marker(
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  //console.log(evt.target.getLatLng());
-  //записать координаты после перемещения метки в строку адреса
+  //записываем координаты после перемещения метки в строку адреса
   ADDRESS.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 //"обычные" маркеры
 totalArray.forEach((obj, i) => {
-  //console.log(obj.location, i);
   const ordinaryPinIcon = window.L.icon({
     iconUrl: './img/pin.svg',
     iconSize: [40, 40],

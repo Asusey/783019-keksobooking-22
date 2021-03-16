@@ -25,17 +25,12 @@ const OFFER_TITLES = [
 
 const MIN_OFFER_PRICE = 10000;
 const MAX_OFFER_PRICE = 60000;
-
 const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow'];
-
 const MIN_OFFER_ROOMS = 1;
 const MAX_OFFER_ROOMS = 6;
-
 const MIN_OFFER_GUESTS = 1;
 const MAX_OFFER_GUESTS = 12;
-
 const OFFER_CHECKIN_HOURS = ['12:00', '13:00', '14:00'];
-
 const OFFER_CHECKOUT_HOURS = ['12:00', '13:00', '14:00'];
 
 const OFFER_FEATURES = [

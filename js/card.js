@@ -1,17 +1,12 @@
 import {totalArray} from './data.js';
 
-//const blockForMap = document.querySelector('.map__canvas');
 const announcementCardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-//const similarCardElements = totalArray();
 const typeMapper = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
 }
-//const key = 'flat';
-//console.log(typeMapper[key]);
 
 //создаем список преимуществ
 const createFeatures = (featuresList) => {
@@ -41,8 +36,7 @@ const createCards = (data) => {
   const cards = [];
 
   data.forEach((card) => {
-    //console.log(card);
-    const cardElement = announcementCardTemplate.cloneNode(true);//клонируем карточку объявления
+    const cardElement = announcementCardTemplate.cloneNode(true);
 
     cardElement.querySelector('.popup__title').textContent = card.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = `${card.offer.address.X}, ${card.offer.address.Y}`;
@@ -53,8 +47,7 @@ const createCards = (data) => {
     card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent =
     'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-    //popup__feature
-    //cardElement.querySelector('.popup__features').textContent = card.offer.features.join(', ');
+    //.popup__feature
     const features = createFeatures(card.offer.features, cardElement.querySelector('.popup__feature'));
     cardElement.querySelector('.popup__features').innerHTML = '';
     cardElement.querySelector('.popup__features').appendChild(features);
@@ -73,7 +66,4 @@ const createCards = (data) => {
 
 const cards = createCards(totalArray);
 
-//blockForMap.appendChild(cards[0]);
-//blockForMap.appendChild(cardElement);
-
-export {cards, createCards};
+export {cards};
