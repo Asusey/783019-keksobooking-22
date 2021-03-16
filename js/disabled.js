@@ -1,24 +1,13 @@
 import {
-  FORM
+  FORM,
+  ADDRESS
 } from './form.js';
 
 const MAP_FILTERS = document.querySelector('.map__filters');
 const MAP_FILTERS_ELEMENTS = MAP_FILTERS.querySelectorAll('.map__filter');
 const MAP_FILTERS_INPUT = MAP_FILTERS.querySelector('.map__features');
-
 const FORM_HEADER = FORM.querySelector('.ad-form-header');
 const FORM_ELEMENTS = FORM.querySelectorAll('.ad-form__element');
-
-
-/*/добавляем фильтру и эелементам фильтра неактивное состояние
-const setMapFilterElementsDisabled = () => {
-  MAP_FILTERS.classList.add('ad-form--disabled');
-  MAP_FILTERS_INPUT.setAttribute('disabled', 'disabled');
-  MAP_FILTERS_ELEMENTS.forEach((element) => {
-    element.disabled = true
-  });
-}
-setMapFilterElementsDisabled();*/
 
 //добавляем фильтру и эелементам фильтра неактивное состояние
 const setMapFilterElementsDisabled = () => {
@@ -62,5 +51,7 @@ const setFormActive = () => {
   setMapFilterElementsActive();
   setFormElementsActive();
 }
+
+ADDRESS.setAttribute('readonly', '');
 
 export {setFormActive};

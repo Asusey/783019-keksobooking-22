@@ -6,9 +6,13 @@ import {
   ADDRESS
 } from './form.js';
 
-/*import {
+import {
   cards
-} from './card.js';*/
+} from './card.js';
+
+import {
+  totalArray
+} from './data.js';
 
 const LAT = 35.68950;
 const LNG = 139.69171;
@@ -17,7 +21,6 @@ const ZOOM = 10;
 //создаём и отрисовываем карту
 const map = window.L.map('map-canvas')
   .on('load', () => {
-    //console.log('Карта инициализирована');
     setFormActive();
     ADDRESS.value = `${LAT}, ${LNG}`;
   })
@@ -38,7 +41,7 @@ const mainPinIcon = window.L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
-})
+});
 
 const mainPinMarker = window.L.marker(
   {
@@ -53,35 +56,29 @@ const mainPinMarker = window.L.marker(
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  //console.log(evt.target.getLatLng());
-  //записать координаты после перемещения метки в строку адреса
+  //записываем координаты после перемещения метки в строку адреса
   ADDRESS.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-/*
-
-//"обычные" маркеры вот тут я совсем зависла,
-не понимаю, откуда взять координаты и данные для балунов
-cards.forEach((cards) => {
+//"обычные" маркеры
+totalArray.forEach((obj, i) => {
   const ordinaryPinIcon = window.L.icon({
     iconUrl: './img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
 
-  const ordinaryPinMarker = window.L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      ordinaryPinIcon,
-    },
-  );
+  const ordinaryPinMarker = window.L.marker({
+    lat: obj.location.X,
+    lng: obj.location.Y,
+  },
+  {
+    draggable: false,
+    icon: ordinaryPinIcon,
+  });
 
   ordinaryPinMarker
     .addTo(map)
-    .bindPopup(cards);
+    .bindPopup(cards[i]);
 });
 
-*/

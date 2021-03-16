@@ -25,17 +25,12 @@ const OFFER_TITLES = [
 
 const MIN_OFFER_PRICE = 10000;
 const MAX_OFFER_PRICE = 60000;
-
 const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow'];
-
 const MIN_OFFER_ROOMS = 1;
 const MAX_OFFER_ROOMS = 6;
-
 const MIN_OFFER_GUESTS = 1;
 const MAX_OFFER_GUESTS = 12;
-
 const OFFER_CHECKIN_HOURS = ['12:00', '13:00', '14:00'];
-
 const OFFER_CHECKOUT_HOURS = ['12:00', '13:00', '14:00'];
 
 const OFFER_FEATURES = [
@@ -72,7 +67,7 @@ const getLocation = () => {
   const X = getGeographicCoordinates(MIN_X_LOCATION, MAX_X_LOCATION, 5);
   const Y = getGeographicCoordinates(MIN_Y_LOCATION, MAX_Y_LOCATION, 5);
 
-  return [X, Y];
+  return {X, Y};
 };
 
 //генерирует объект author
@@ -109,6 +104,5 @@ const createObject = () => {
 
 //создаём новый массив объектов
 const totalArray = new Array(TOTAL_COUNT).fill(null).map(() => createObject());
-totalArray;  //здесь я бы вынесла в консоль, но нельзя использовать console.log
 
 export {totalArray};
