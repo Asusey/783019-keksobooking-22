@@ -21,10 +21,12 @@ TITLE_INPUT.addEventListener('input', () => {
 
   if (valueLength < MIN_TITLE_LENGTH) {
     TITLE_INPUT.setCustomValidity(
-      'Введите ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
+      'Введите ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.',
+    );
   } else if (valueLength > MAX_TITLE_LENGTH) {
     TITLE_INPUT.setCustomValidity(
-      'Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
+      'Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.',
+    );
   } else {
     TITLE_INPUT.setCustomValidity('');
   }
@@ -34,9 +36,13 @@ TITLE_INPUT.addEventListener('input', () => {
 //цена за ночь
 PRICE_INPUT.addEventListener('invalid', () => {
   if (PRICE_INPUT.validity.rangeOverflow) {
-    PRICE_INPUT.setCustomValidity('Цена за ночь не должна превышать ' + MAX_PRICE);
+    PRICE_INPUT.setCustomValidity(
+      'Цена за ночь не должна превышать ' + MAX_PRICE,
+    );
   } else if (PRICE_INPUT.validity.rangeUnderflow) {
-    PRICE_INPUT.setCustomValidity('Цена за ночь не может быть меньше ' + PRICE_INPUT.min);
+    PRICE_INPUT.setCustomValidity(
+      'Цена за ночь не может быть меньше ' + PRICE_INPUT.min,
+    );
   } else if (PRICE_INPUT.validity.valueMissing) {
     PRICE_INPUT.setCustomValidity('Поле, обязательное для заполнения');
   } else {
@@ -70,7 +76,9 @@ ROOM_NUMBER_SELECT.addEventListener('change', (evt) => {
 
 CAPACITY_SELECT.addEventListener('invalid', () => {
   if (CAPACITY_SELECT.value > ROOM_NUMBER_SELECT.value) {
-    CAPACITY_SELECT.setCustomValidity('Количество гостей не должно превышать количества комнат');
+    CAPACITY_SELECT.setCustomValidity(
+      'Количество гостей не должно превышать количества комнат',
+    );
   } else {
     CAPACITY_SELECT.setCustomValidity('');
   }
@@ -78,7 +86,9 @@ CAPACITY_SELECT.addEventListener('invalid', () => {
 
 ROOM_NUMBER_SELECT.addEventListener('invalid', () => {
   if (ROOM_NUMBER_SELECT.value < CAPACITY_SELECT.value) {
-    ROOM_NUMBER_SELECT.setCustomValidity('Количество гостей не должно превышать количества комнат');
+    ROOM_NUMBER_SELECT.setCustomValidity(
+      'Количество гостей не должно превышать количества комнат',
+    );
   } else {
     ROOM_NUMBER_SELECT.setCustomValidity('');
   }
