@@ -1,12 +1,9 @@
-import './disabled.js';
-import './data.js';
-import './card.js';
-import './form.js';
-import './map.js';
-import './validation.js';
+import { initDisabled} from './disabled.js';
+import { initMap } from  './map.js';
+import { initValidation} from  './validation.js';
+import { initFormSubmit} from './form.js';
 
-/*fetch('https://22.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
-  });*/
+initDisabled();
+initValidation();
+initFormSubmit();
+initMap();
