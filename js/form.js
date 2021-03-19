@@ -1,7 +1,5 @@
 import { sendData } from './api.js';
-
 import { createSuccessfulCreation, createErrorCreation } from './popup.js';
-
 import { mainPinMarker, LAT, LNG } from './map.js';
 
 const FORM = document.querySelector('.ad-form');
@@ -60,6 +58,8 @@ RESET_BUTTON.addEventListener('click', (evt) => {
   evt.onClearForm();
 });
 
-setUserFormSubmit(createSuccessfulCreation, createErrorCreation);
+const initFormSubmit = () => {
+  setUserFormSubmit(createSuccessfulCreation, createErrorCreation);
+};
 
-export { FORM, ADDRESS, setUserFormSubmit };
+export { FORM, ADDRESS, initFormSubmit };

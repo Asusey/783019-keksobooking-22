@@ -1,35 +1,14 @@
 import { setFormActive } from './disabled.js';
-
 import { ADDRESS } from './form.js';
-
 import { createCards } from './card.js';
-
 import { getData } from './api.js';
-
 import { showAlert } from './util.js';
 
 const LAT = 35.6895;
 const LNG = 139.69171;
 const ZOOM = 10;
 
-//создаём и отрисовываем карту
-const map = window.L.map('map-canvas')
-  .on('load', () => {
-    setFormActive();
-    ADDRESS.value = `${LAT}, ${LNG}`;
-  })
-  .setView(
-    {
-      lat: LAT,
-      lng: LNG,
-    },
-    ZOOM,
-  );
-
-window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+let map = null;
 
 //главный маркер
 const mainPinIcon = window.L.icon({
@@ -48,14 +27,6 @@ const mainPinMarker = window.L.marker(
     icon: mainPinIcon,
   },
 );
-mainPinMarker.addTo(map);
-
-mainPinMarker.on('moveend', (evt) => {
-  //записываем координаты после перемещения метки в строку адреса
-  ADDRESS.value = `${evt.target
-    .getLatLng()
-    .lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
-});
 
 //'обычные' маркеры
 const onSuccess = (data) => {
@@ -82,6 +53,36 @@ const onSuccess = (data) => {
   });
 };
 
-getData(onSuccess, showAlert);
+const initMap = () => {
+  //создаём и отрисовываем карту
+  map = window.L.map('map-canvas')
+    .on('load', () => {
+      setFormActive();
+      ADDRESS.value = `${LAT}, ${LNG}`;
+    })
+    .setView(
+      {
+        lat: LAT,
+        lng: LNG,
+      },
+      ZOOM,
+    );
 
-export { mainPinMarker, LAT, LNG };
+  window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  mainPinMarker.addTo(map);
+
+  mainPinMarker.on('moveend', (evt) => {
+    //записываем координаты после перемещения метки в строку адреса
+    ADDRESS.value = `${evt.target
+      .getLatLng()
+      .lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
+  });
+
+  getData(onSuccess, showAlert);
+};
+
+export { mainPinMarker, LAT, LNG,  initMap };

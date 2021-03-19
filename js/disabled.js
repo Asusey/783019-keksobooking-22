@@ -6,32 +6,30 @@ const MAP_FILTERS_INPUT = MAP_FILTERS.querySelector('.map__features');
 const FORM_HEADER = FORM.querySelector('.ad-form-header');
 const FORM_ELEMENTS = FORM.querySelectorAll('.ad-form__element');
 
+const toggleDisable = (elements, state) => {
+  elements.forEach(element => {
+    element.disabled = state;
+  })
+};
+
 //добавляем фильтру и эелементам фильтра неактивное состояние
 const setMapFilterElementsDisabled = () => {
   MAP_FILTERS.classList.add('ad-form--disabled');
-  for (let i = 0; i < MAP_FILTERS_ELEMENTS.length; i++) {
-    MAP_FILTERS_ELEMENTS[i].disabled = true;
-  }
+  toggleDisable(MAP_FILTERS_ELEMENTS, true);
   MAP_FILTERS_INPUT.setAttribute('disabled', 'disabled');
 };
-setMapFilterElementsDisabled();
 
 //добавляем форме заполнения и элементам неактивное состояние
 const setFormElementsDisabled = () => {
   FORM.classList.add('ad-form--disabled');
   FORM_HEADER.setAttribute('disabled', 'disabled');
-  for (let i = 0; i < FORM_ELEMENTS.length; i++) {
-    FORM_ELEMENTS[i].disabled = true;
-  }
+  toggleDisable(FORM_ELEMENTS, true);
 };
-setFormElementsDisabled();
 
 //активное состояние фильтра и его элементов
 const setMapFilterElementsActive = () => {
   MAP_FILTERS.classList.remove('ad-form--disabled');
-  for (let i = 0; i < MAP_FILTERS_ELEMENTS.length; i++) {
-    MAP_FILTERS_ELEMENTS[i].disabled = false;
-  }
+  toggleDisable(MAP_FILTERS_ELEMENTS, false);
   MAP_FILTERS_INPUT.removeAttribute('disabled', 'disabled');
 };
 
@@ -39,9 +37,7 @@ const setMapFilterElementsActive = () => {
 const setFormElementsActive = () => {
   FORM.classList.remove('ad-form--disabled');
   FORM_HEADER.removeAttribute('disabled', 'disabled');
-  for (let i = 0; i < FORM_ELEMENTS.length; i++) {
-    FORM_ELEMENTS[i].disabled = false;
-  }
+  toggleDisable(FORM_ELEMENTS, false);
 };
 
 const setFormActive = () => {
@@ -49,6 +45,10 @@ const setFormActive = () => {
   setFormElementsActive();
 };
 
-ADDRESS.setAttribute('readonly', '');
+const initDisabled = () => {
+  setMapFilterElementsDisabled();
+  setFormElementsDisabled();
+  ADDRESS.setAttribute('readonly', '');
+}
 
-export { setFormActive };
+export { setFormActive,  initDisabled };
