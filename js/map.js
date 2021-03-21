@@ -9,6 +9,7 @@ const LNG = 139.69171;
 const ZOOM = 10;
 
 let map = null;
+let ads = [];
 
 //главный маркер
 const mainPinIcon = window.L.icon({
@@ -29,9 +30,10 @@ const mainPinMarker = window.L.marker(
 );
 
 //'обычные' маркеры
-const onSuccess = (data) => {
-  const cards = createCards(data);
-  data.forEach((obj, i) => {
+const addPins = (data) => {
+  const slicedPins = data.slice(0, 10);
+  const cards = createCards(slicedPins);
+  slicedPins.forEach((obj, i) => {
     const ordinaryPinIcon = window.L.icon({
       iconUrl: './img/pin.svg',
       iconSize: [40, 40],
@@ -46,6 +48,7 @@ const onSuccess = (data) => {
       {
         draggable: false,
         icon: ordinaryPinIcon,
+        adPin: true,
       },
     );
 
@@ -85,4 +88,23 @@ const initMap = () => {
   getData(onSuccess, showAlert);
 };
 
-export { mainPinMarker, LAT, LNG,  initMap };
+const removePins = () => {
+  map.eachLayer(layer => {
+    if (layer.options.adPin) {
+      layer.remove()
+    }
+  });
+}
+
+const onSuccess = (data) => {
+  ads = data;
+  addPins(data);
+}
+
+const onFilterPins = (filter) => {
+  removePins();
+  let data = ads.filter(filter);
+  addPins(data);
+}
+
+export { mainPinMarker, LAT, LNG,  initMap, onFilterPins, ads };
