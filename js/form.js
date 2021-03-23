@@ -1,6 +1,7 @@
 import { sendData } from './api.js';
 import { createSuccessfulCreation, createErrorCreation } from './popup.js';
 import { mainPinMarker, LAT, LNG } from './map.js';
+import { resetImage } from './upload.js';
 
 const FORM = document.querySelector('.ad-form');
 const HOUSE_TYPE = FORM.querySelector('#type');
@@ -30,11 +31,14 @@ FORM_ELEMENT_TIME.addEventListener('change', (evt) => {
 //очистка формы
 const onClearForm = () => {
   FORM.reset();
+  resetImage();
+
   mainPinMarker.setLatLng({
     lat: LAT,
     lng: LNG,
   });
   ADDRESS.value = `${LAT}, ${LNG}`;
+
 };
 
 //отменяет действие формы по умолчанию, отправляет данные на сервер
@@ -55,7 +59,10 @@ const setUserFormSubmit = (onSuccessSubmit, onFail) => {
 
 //кнопка очистить форму
 RESET_BUTTON.addEventListener('click', (evt) => {
-  evt.onClearForm();
+  evt.preventDefault();
+  onClearForm();
+  resetImage();
+  //resetUserImage();
 });
 
 const initFormSubmit = () => {

@@ -1,12 +1,15 @@
-import { FORM } from './form.js';
+// import { FORM } from './form.js';
 import { showAlert } from './util.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-const FILE_CHOOSER_AVATAR = FORM.querySelector('.ad-form__field .ad-form-header__input');
-const AVATAR_PREVIEW = FORM.querySelector('.ad-form-header__preview img');
-const FILE_CHOOSER_PHOTOS = FORM.querySelector('.ad-form__upload .ad-form__input');
-const PHOTOS_CONTAINER = FORM.querySelector('.ad-form__photo-container');
-const PHOTO = FORM.querySelector('.ad-form__photo');
+const DEFAULT_IMG = 'img/muffin-grey.svg';
+const FILE_CHOOSER_AVATAR = document.querySelector('.ad-form__field .ad-form-header__input');
+const avatarPreviewWrapper = document.querySelector('.ad-form-header__preview');
+const AVATAR_PREVIEW = document.querySelector('.ad-form-header__preview img');
+const FILE_CHOOSER_PHOTOS = document.querySelector('.ad-form__upload .ad-form__input');
+const PHOTOS_CONTAINER = document.querySelector('.ad-form__photo-container');
+const PHOTO = document.querySelector('.ad-form__photo');
+//const PHOTO_PREVIEW = document.querySelector('.ad-form__photo img');//не существует
 
 FILE_CHOOSER_AVATAR.addEventListener('change', () => {
   const file = FILE_CHOOSER_AVATAR.files[0];
@@ -60,3 +63,20 @@ FILE_CHOOSER_PHOTOS.addEventListener('change', () => {
     }
   }
 });
+
+const resetImage = () => {
+  const photos = document.querySelectorAll('.ad-form__photo')
+  photos.forEach((img, i) => {
+    i > 0 && img.remove()
+  });
+  avatarPreviewWrapper.children[0].src = DEFAULT_IMG;
+}
+
+// const resetUserImage = () => {
+
+//   if (PHOTO_PREVIEW !== null) {
+//     PHOTO_PREVIEW.remove()
+//   }
+// }
+
+export { resetImage };
