@@ -1,7 +1,8 @@
 import { sendData } from './api.js';
 import { createSuccessfulCreation, createErrorCreation } from './popup.js';
-import { mainPinMarker, LAT, LNG } from './map.js';
+import { mainPinMarker, LAT, LNG, resetPins } from './map.js';
 import { resetImage } from './upload.js';
+import { resetFilterForm } from './filter.js';
 
 const FORM = document.querySelector('.ad-form');
 const HOUSE_TYPE = FORM.querySelector('#type');
@@ -21,6 +22,7 @@ const minPrice = {
 
 HOUSE_TYPE.addEventListener('change', (evt) => {
   PRICE.placeholder = minPrice[evt.target.value];
+  PRICE.setAttribute('min', minPrice[evt.target.value]);
 });
 
 FORM_ELEMENT_TIME.addEventListener('change', (evt) => {
@@ -32,13 +34,15 @@ FORM_ELEMENT_TIME.addEventListener('change', (evt) => {
 const onClearForm = () => {
   FORM.reset();
   resetImage();
+  resetFilterForm();
+  resetPins();
 
   mainPinMarker.setLatLng({
     lat: LAT,
     lng: LNG,
   });
-  ADDRESS.value = `${LAT}, ${LNG}`;
 
+  ADDRESS.value = `${LAT}, ${LNG}`;
 };
 
 //отменяет действие формы по умолчанию, отправляет данные на сервер
@@ -62,7 +66,8 @@ RESET_BUTTON.addEventListener('click', (evt) => {
   evt.preventDefault();
   onClearForm();
   resetImage();
-  //resetUserImage();
+  resetFilterForm();
+  resetPins();
 });
 
 const initFormSubmit = () => {

@@ -382,15 +382,15 @@ fieldset {
 .ad-form__element input:hover,
 .ad-form__element select:hover,
 .ad-form__element textarea:hover {
-  border-color: #ffaa99;
+  border-color: #81acfd;
 }
 
 .ad-form__element input:focus,
 .ad-form__element select:focus,
 .ad-form__element textarea:focus {
   outline: none;
-  -webkit-box-shadow: 0 0 2px 2px #ff6547;
-          box-shadow: 0 0 2px 2px #ff6547;
+  -webkit-box-shadow: 0 0 2px 2px #47a6ff;
+          box-shadow: 0 0 2px 2px #47a6ff;
 }
 
 .ad-form__element--time {

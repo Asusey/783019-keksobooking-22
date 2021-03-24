@@ -1,4 +1,3 @@
-// import { FORM } from './form.js';
 import { showAlert } from './util.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
@@ -9,7 +8,6 @@ const AVATAR_PREVIEW = document.querySelector('.ad-form-header__preview img');
 const FILE_CHOOSER_PHOTOS = document.querySelector('.ad-form__upload .ad-form__input');
 const PHOTOS_CONTAINER = document.querySelector('.ad-form__photo-container');
 const PHOTO = document.querySelector('.ad-form__photo');
-//const PHOTO_PREVIEW = document.querySelector('.ad-form__photo img');//не существует
 
 FILE_CHOOSER_AVATAR.addEventListener('change', () => {
   const file = FILE_CHOOSER_AVATAR.files[0];
@@ -66,17 +64,18 @@ FILE_CHOOSER_PHOTOS.addEventListener('change', () => {
 
 const resetImage = () => {
   const photos = document.querySelectorAll('.ad-form__photo')
-  photos.forEach((img, i) => {
-    i > 0 && img.remove()
+  photos.forEach((imgContainer, i) => {
+
+    if (i === 0) {
+      const firstImage = imgContainer.querySelector('img');
+      if (firstImage) {
+        imgContainer.querySelector('img').remove();
+      }
+    } else {
+      imgContainer.remove();
+    }
   });
   avatarPreviewWrapper.children[0].src = DEFAULT_IMG;
 }
-
-// const resetUserImage = () => {
-
-//   if (PHOTO_PREVIEW !== null) {
-//     PHOTO_PREVIEW.remove()
-//   }
-// }
 
 export { resetImage };
