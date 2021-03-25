@@ -56,6 +56,11 @@ const addPins = (data) => {
   });
 };
 
+const resetPins = () => {
+  removePins();
+  addPins(ads);
+}
+
 const initMap = () => {
   //создаём и отрисовываем карту
   map = window.L.map('map-canvas')
@@ -107,4 +112,4 @@ const onFilterPins = (filter) => {
   addPins(data);
 }
 
-export { mainPinMarker, LAT, LNG,  initMap, onFilterPins, ads };
+export { mainPinMarker, LAT, LNG,  initMap, onFilterPins, resetPins };

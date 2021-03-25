@@ -1,12 +1,13 @@
 import { FORM } from './form.js';
 
-const TITLE_INPUT = FORM.querySelector('#title');
+const TITLE_INPUT = document.querySelector('#title');
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const PRICE_INPUT = FORM.querySelector('#price');
 const MAX_PRICE = 1000000;
 const ROOM_NUMBER_SELECT = FORM.querySelector('#room_number');
 const CAPACITY_SELECT = FORM.querySelector('#capacity');
+const FORM_FIELDS = FORM.elements;
 
 const roomCapacityMap = {
   1: ['1'],
@@ -35,7 +36,7 @@ const initValidation = () => {
   });
 
   //цена за ночь
-  PRICE_INPUT.addEventListener('invalid', () => {
+  PRICE_INPUT.addEventListener('input', () => {
     if (PRICE_INPUT.validity.rangeOverflow) {
       PRICE_INPUT.setCustomValidity(
         'Цена за ночь не должна превышать ' + MAX_PRICE,
@@ -52,48 +53,35 @@ const initValidation = () => {
   });
 
   //количество комнат = количество мест
-  const dropDisabled = (options) => {
-    options.forEach((option) => {
-      option.removeAttribute('disabled');
-    });
-  };
-
   ROOM_NUMBER_SELECT.addEventListener('change', (evt) => {
     const capacity = roomCapacityMap[evt.target.value];
     const options = CAPACITY_SELECT.querySelectorAll('option');
 
-    //удаляем у всех disabled, чтобы начать с читстого листа
-    dropDisabled(options);
-
     //расставляем disabled и selected
     options.forEach((option) => {
       if (!capacity.includes(option.value)) {
+
         option.setAttribute('disabled', 'disabled');
       } else {
-        option.setAttribute('selected', 'selected');
+        option.removeAttribute('disabled');
+        CAPACITY_SELECT.value = option.value;
       }
     });
   });
-
-  CAPACITY_SELECT.addEventListener('invalid', () => {
-    if (CAPACITY_SELECT.value > ROOM_NUMBER_SELECT.value) {
-      CAPACITY_SELECT.setCustomValidity(
-        'Количество гостей не должно превышать количества комнат',
-      );
-    } else {
-      CAPACITY_SELECT.setCustomValidity('');
-    }
-  });
-
-  ROOM_NUMBER_SELECT.addEventListener('invalid', () => {
-    if (ROOM_NUMBER_SELECT.value < CAPACITY_SELECT.value) {
-      ROOM_NUMBER_SELECT.setCustomValidity(
-        'Количество гостей не должно превышать количества комнат',
-      );
-    } else {
-      ROOM_NUMBER_SELECT.setCustomValidity('');
-    }
-  });
 }
 
-export { initValidation };
+//подсветка неверных полей
+const checkedInvalidFields = () => {
+  for (let i = 0; i < FORM_FIELDS.length; i++) {
+    FORM_FIELDS[i].addEventListener('invalid', (evt) => {
+      evt.target.style.border = 'solid 3px red';
+    });
+    FORM_FIELDS[i].addEventListener('input', (evt) => {
+      evt.target.style.border = 'none';
+    });
+  }
+}
+
+checkedInvalidFields();
+
+export { initValidation};
