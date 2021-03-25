@@ -5,7 +5,6 @@ const HOUSING_TYPE = MAP_FILTERS.querySelector('#housing-type');
 const HOUSING_PRICE = MAP_FILTERS.querySelector('#housing-price');
 const HOUSING_ROOMS = MAP_FILTERS.querySelector('#housing-rooms');
 const HOUSING_GUESTS = MAP_FILTERS.querySelector('#housing-guests');
-//const HOUSING_FEATURES = MAP_FILTERS.querySelector('#housing-features');
 const FILTER_CHECKBOX = MAP_FILTERS.querySelectorAll('.map__checkbox');
 const RERENDER_DELAY = 500;
 
@@ -58,35 +57,14 @@ const initFilters = () => {
         ) {
           return false;
         }
-
-        //console.log(Array.from(FILTER_CHECKBOX));
         return true;
       });
     }, RERENDER_DELAY),
   );
 };
 
-export { initFilters };
+const resetFilterForm = () => {
+  MAP_FILTERS.reset();
+};
 
-// const getFilterByType = (type) => {
-//   HOUSING_TYPE.value === 'any' || type === HOUSING_TYPE.value;
-//}
-
-// HOUSING_FEATURES.addEventListener('change', () => {
-
-//   //console.log(evt);
-
-//   let result = {};
-//   FILTER_CHECKBOX.forEach((element) => {
-//     //console.log(element.checked);
-//     ads.forEach((ad) => {
-//       const isInclude = ad.offer.features.includes(element.value);
-//       if (isInclude) {
-//         result[ad.offer.address] = ad;
-//       }
-//     })
-//   });
-//   //console.log(result);
-//   const filteredResult = Object.values(result);
-//   //console.log(filteredResult);
-// });
+export { initFilters, resetFilterForm };
