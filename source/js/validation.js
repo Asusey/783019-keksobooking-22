@@ -8,12 +8,23 @@ const MAX_PRICE = 1000000;
 const ROOM_NUMBER_SELECT = FORM.querySelector('#room_number');
 const CAPACITY_SELECT = FORM.querySelector('#capacity');
 const FORM_FIELDS = FORM.elements;
+const CAPACITY_ELEMENTS = FORM.querySelectorAll('#capacity option');
 
 const roomCapacityMap = {
   1: ['1'],
   2: ['1', '2'],
   3: ['1', '2', '3'],
   100: ['0'],
+};
+
+//добавляем полям элемента capacity неактивное состояние
+const setCapacitySelectdisabled = () => {
+
+  CAPACITY_ELEMENTS.forEach(element => {
+    if (!element.selected) {
+      element.setAttribute('disabled', 'disabled');
+    }
+  })
 };
 
 const initValidation = () => {
@@ -84,4 +95,4 @@ const checkedInvalidFields = () => {
 
 checkedInvalidFields();
 
-export { initValidation};
+export { initValidation, setCapacitySelectdisabled };

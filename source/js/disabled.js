@@ -1,4 +1,5 @@
 import { FORM, ADDRESS } from './form.js';
+import { setCapacitySelectdisabled } from './validation.js';
 
 const MAP_FILTERS = document.querySelector('.map__filters');
 const MAP_FILTERS_ELEMENTS = MAP_FILTERS.querySelectorAll('.map__filter');
@@ -43,6 +44,7 @@ const setFormElementsActive = () => {
 const setFormActive = () => {
   setMapFilterElementsActive();
   setFormElementsActive();
+  setCapacitySelectdisabled();
 };
 
 const initDisabled = () => {
