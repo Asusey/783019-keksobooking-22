@@ -7,6 +7,7 @@ import { showAlert } from './util.js';
 const LAT = 35.6895;
 const LNG = 139.69171;
 const ZOOM = 10;
+const MAX_NUMBER_OF_ADS = 10;
 
 let map = null;
 let ads = [];
@@ -31,9 +32,8 @@ const mainPinMarker = window.L.marker(
 
 //'обычные' маркеры
 const addPins = (data) => {
-  const slicedPins = data.slice(0, 10);
-  const cards = createCards(slicedPins);
-  slicedPins.forEach((obj, i) => {
+  const cards = createCards(data);
+  data.forEach((obj, i) => {
     const ordinaryPinIcon = window.L.icon({
       iconUrl: './img/pin.svg',
       iconSize: [40, 40],
@@ -58,7 +58,7 @@ const addPins = (data) => {
 
 const resetPins = () => {
   removePins();
-  addPins(ads);
+  addPins(ads.slice(0, MAX_NUMBER_OF_ADS));
 }
 
 const initMap = () => {
@@ -103,13 +103,24 @@ const removePins = () => {
 
 const onSuccess = (data) => {
   ads = data;
-  addPins(data);
+  addPins(data.slice(0, MAX_NUMBER_OF_ADS));
 }
 
 const onFilterPins = (filter) => {
   removePins();
-  let data = ads.filter(filter);
-  addPins(data);
+
+  const filteredAds = [];
+
+  for (let ad of ads) {
+    if (filter(ad)) {
+      filteredAds.push(ad);
+    }
+    if (filteredAds.length >= MAX_NUMBER_OF_ADS) {
+      break;
+    }
+  }
+
+  addPins(filteredAds);
 }
 
 export { mainPinMarker, LAT, LNG,  initMap, onFilterPins, resetPins };

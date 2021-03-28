@@ -3,6 +3,7 @@ import { createSuccessfulCreation, createErrorCreation } from './popup.js';
 import { mainPinMarker, LAT, LNG, resetPins } from './map.js';
 import { resetImage } from './upload.js';
 import { resetFilterForm } from './filter.js';
+import { PRICE_INPUT, resetInvalidFields } from './validation.js';
 
 const FORM = document.querySelector('.ad-form');
 const HOUSE_TYPE = FORM.querySelector('#type');
@@ -20,6 +21,19 @@ const minPrice = {
   palace: 10000,
 };
 
+// проверяем цену при отправке формы
+const checkPrice = () => {
+  const price = PRICE.value;
+  const houseType = HOUSE_TYPE.value;
+  if (minPrice[houseType] < price) {
+    PRICE_INPUT.setCustomValidity('Поле, обязательное для заполнения');
+    return false;
+  }
+
+  PRICE_INPUT.setCustomValidity('');
+  return true;
+}
+
 HOUSE_TYPE.addEventListener('change', (evt) => {
   PRICE.placeholder = minPrice[evt.target.value];
   PRICE.setAttribute('min', minPrice[evt.target.value]);
@@ -36,6 +50,8 @@ const onClearForm = () => {
   resetImage();
   resetFilterForm();
   resetPins();
+  resetInvalidFields();
+  PRICE.placeholder = minPrice.flat;
 
   mainPinMarker.setLatLng({
     lat: LAT,
@@ -49,6 +65,11 @@ const onClearForm = () => {
 const setUserFormSubmit = (onSuccessSubmit, onFail) => {
   FORM.addEventListener('submit', (evt) => {
     evt.preventDefault();
+
+    //проверяем цену при отправке формы
+    if (!checkPrice()) {
+      return;
+    }
 
     sendData(
       () => {
