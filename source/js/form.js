@@ -7,7 +7,6 @@ import { PRICE_INPUT, resetInvalidFields } from './validation.js';
 
 const FORM = document.querySelector('.ad-form');
 const HOUSE_TYPE = FORM.querySelector('#type');
-const PRICE = FORM.querySelector('#price');
 const ADDRESS = FORM.querySelector('#address');
 const FORM_ELEMENT_TIME = FORM.querySelector('.ad-form__element--time');
 const CHECKIN = FORM.querySelector('#timein');
@@ -23,20 +22,39 @@ const minPrice = {
 
 // проверяем цену при отправке формы
 const checkPrice = () => {
-  const price = PRICE.value;
+  const price = PRICE_INPUT.value;
   const houseType = HOUSE_TYPE.value;
-  if (minPrice[houseType] < price) {
+
+  if (!price && houseType !== 'bungalow') {
     PRICE_INPUT.setCustomValidity('Поле, обязательное для заполнения');
+    return false;
+  }
+  if (parseInt(price, 10) < minPrice[houseType]) {
+    PRICE_INPUT.setCustomValidity(
+      `Цена не может быть ниже ${minPrice[houseType]}`,
+    );
     return false;
   }
 
   PRICE_INPUT.setCustomValidity('');
   return true;
-}
+};
+
+PRICE_INPUT.addEventListener('input', () => {
+  checkPrice();
+  PRICE_INPUT.reportValidity();
+});
+
+PRICE_INPUT.addEventListener('blur', () => {
+  checkPrice();
+  PRICE_INPUT.reportValidity();
+});
 
 HOUSE_TYPE.addEventListener('change', (evt) => {
-  PRICE.placeholder = minPrice[evt.target.value];
-  PRICE.setAttribute('min', minPrice[evt.target.value]);
+  PRICE_INPUT.placeholder = minPrice[evt.target.value];
+  PRICE_INPUT.setAttribute('min', minPrice[evt.target.value]);
+  checkPrice();
+  PRICE_INPUT.reportValidity();
 });
 
 FORM_ELEMENT_TIME.addEventListener('change', (evt) => {
@@ -51,7 +69,7 @@ const onClearForm = () => {
   resetFilterForm();
   resetPins();
   resetInvalidFields();
-  PRICE.placeholder = minPrice.flat;
+  PRICE_INPUT.placeholder = minPrice.flat;
 
   mainPinMarker.setLatLng({
     lat: LAT,
